@@ -26,16 +26,17 @@ attributes = ["Gender","Age","debt","married","bankCustomer",
  "Employed","CreditScore","DriversLicense","Citizen","ZipCode","Income","class"]
 df = df.set_axis(attributes, axis=1)
 print(df)
+#Drop column Zipcode
 df = df.drop('ZipCode', axis = 1)
-print(df)
-hist = df.hist(bins=5)
+#Set column type to float
+df["Age"] = df["Age"].astype("float64")
+print(df["Age"])
+hist = df.hist(column="Age")
 
-values = pd.DataFrame({
- 'Length': [2.7, 8.7, 3.4, 2.4, 1.9],
- 'Breadth': [4.24, 2.67, 7.6, 7.1, 4.9]
-})
+df.hist( cumulative = True )
 
-# Creating Histograms of columns 'Length'
-# and 'Breadth' using Dataframe.hist()
-# function
-hist = values.hist(bins=5)
+df.boxplot(by ='Age', column =['YearsEmployed'], grid = True)
+
+
+pd.plotting.scatter_matrix(df[["Age", "debt", "YearsEmployed"]])
+
